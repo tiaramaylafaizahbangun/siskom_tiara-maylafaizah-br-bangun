@@ -1,3 +1,54 @@
+<?php 
+    // connect data ke database
+    include("db_connect.php");
+
+    // mengambil id dari URL dan mengambil data dari id tersebut
+    if(isset($_GET['id'])){
+        $id = $conn->real_escape_string($_GET["id"]);
+        $sql = "SELECT * FROM sunscreen WHERE id=".$id;
+        $result = $conn->query($sql);
+        $sunscreen = $result->fetch_assoc();
+        $result->free_result();
+        $conn->close();
+    }
+
+    // mengambil data dari form yang memiliki button submit bernama update
+    if(isset($_POST['update'])){
+        // membuat variabel dari setiap data yang ada di form
+        $id_to_update = $conn->real_escape_string($_POST['update']);
+        $name = $conn->real_escape_string($_POST['name']);
+        $npm = $conn->real_escape_string($_POST['npm']);
+        $jenis_kelamin = $conn->real_escape_string($_POST['jenis_kelamin']);
+
+        // membuat link dari gambar yang kita upload
+        $filename = $_FILES['image']["name"];
+        $extension = pathinfo($filename, PATHINFO_EXTENSION);
+        $new_name = date('YmdHis');
+        $tempname = $_FILES['image']['tmp_name'];
+        $folder = "./images/".$name.".".$extension;
+
+        // mengupload gambar. jika ada gambar maka akan mengupdate data gambar, jika tidak maka kita tidak akan mengupdate data gambar
+        if(move_uploaded_file($tempname, $folder)){
+            $sql = "UPDATE sunscreen SET name='$name', npm=$npm, jenis_kelamin='$jenis_kelamin', image='$folder' WHERE id=$id_to_update";
+        } else {
+            $sql = "UPDATE mahasiswa SET name='$name', npm=$npm, jenis_kelamin='$jenis_kelamin' WHERE id=$id_to_update";
+        }
+        $result = $conn->query($sql);
+
+        // menjalankan query
+        if($result) {
+            // jika query berhasil maka akan diarahkan ke page index.php
+            header('Location: index.php');
+        } else {
+            echo $conn->error;
+        }
+    }
+
+   
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,41 +78,42 @@
             <label>Nama</label>
             <br>
             <!-- menambahkan attribute value yang nilainya dari database. jadi nanti di input formnya langsung terisi nilai -->
-            <input type="text" name="name" value=<?php echo $student['nama']; ?> >
+            <input type="text" name="name" value=<?php echo $sunscreen['nama']; ?> >
             <br>
             <label>Harga</label>
             <br>
-            <input type="text" name="harga" value=<?php echo $student['harga']; ?> >
+            <input type="text" name="harga" value=<?php echo $sunscreen['harga']; ?> >
             <br>
             <label>spf<label>
             <br>
-            <input type="text" name="SPF" value=<?php echo $student['SPF']; ?> >
+            <input type="text" name="spf" value=<?php echo $sunscreen['SPF']; ?> >
             <br>
             <label>Tekstur</label>
             <br>
-            <input type="text" name="tekstur" value=<?php echo $student['tekstur']; ?> >
+            <input type="text" name="tekstur" value=<?php echo $sunscreen['tekstur']; ?> >
             <br>
             <label>manfaat</label>
             <br>
-            <input type="text" name="manfaat" value=<?php echo $student['manfaat']; ?> >
+            <input type="text" name="manfaat" value=<?php echo $sunscreen['manfaat']; ?> >
             <br>
             <label>keunggulan</label>
             <br>
-            <input type="text" name="keunggulan" value=<?php echo $student['keunggulan']; ?> >
+            <input type="text" name="keunggulan" value=<?php echo $sunscreen['keunggulan']; ?> >
             <br>
             <label>rate</label>
             <br>
-            <input type="text" name="rate" value=<?php echo $student['rate']; ?> >
+            <input type="text" name="rate" value=<?php echo $sunscreen['rate']; ?> >
             <br>
             <label>gambar</label>
             <br>
-            <input type="file" name="update" value=<?php echo $student['']; ?> >
+            <img scr = <?php echo $sunscreen['gambar'] ?> width= "100">
+            <input type="file" name="gambar">
             <br>
             
             <br>
             <br>
             <br>
-            <button type="submit" name="update" value=<?php echo $student["id"]; ?>>Submit</button>
+            <button type="submit" name="update" value=<?php echo $sunscreen["id"]; ?>>Submit</button>
         </form>
             </div>
         </div>
