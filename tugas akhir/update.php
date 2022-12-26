@@ -74,47 +74,47 @@
     <div class="update-data">
         <div class="text-data">
         <h1>Update</h1>
-         <form method="POST" action="update.php" enctype="multipart/form-data">
+            <form method="POST" action="update.php" enctype="multipart/form-data">
             <label>Nama</label>
             <br>
-            <!-- menambahkan attribute value yang nilainya dari database. jadi nanti di input formnya langsung terisi nilai -->
-            <input type="text" name="name" value=<?php echo $sunscreen['nama']; ?> >
+            <input type="text" name="nama"  value=<?php echo $sunscreen>['nama']; ?> >
             <br>
-            <label>Harga</label>
+            <label>harga</label>
             <br>
-            <input type="text" name="harga" value=<?php echo $sunscreen['harga']; ?> >
+            <input type="number" name="harga" value=<?php echo $sunscreen>['harga']; ?> >>
             <br>
-            <label>spf<label>
+            <label>SPF</label>
             <br>
-            <input type="text" name="spf" value=<?php echo $sunscreen['SPF']; ?> >
+            <input type="text" name="spf" value=<?php echo $sunscreen>['spf']; ?> >>
             <br>
-            <label>Tekstur</label>
+            <label>tekstur</label>
             <br>
-            <input type="text" name="tekstur" value=<?php echo $sunscreen['tekstur']; ?> >
+            <input type="text" name="tekstur" value=<?php echo $sunscreen>['tekstur']; ?> >>
             <br>
             <label>manfaat</label>
             <br>
-            <input type="text" name="manfaat" value=<?php echo $sunscreen['manfaat']; ?> >
+            <input type="text" name="manfaat" value=<?php echo $sunscreen>['manfaat']; ?> >>
             <br>
             <label>keunggulan</label>
             <br>
-            <input type="text" name="keunggulan" value=<?php echo $sunscreen['keunggulan']; ?> >
+            <input type="text" name="keunggulan" value=<?php echo $sunscreen>['keunggulan']; ?> >>
             <br>
-            <label>rate</label>
+            <label>rating</label>
             <br>
-            <input type="text" name="rate" value=<?php echo $sunscreen['rate']; ?> >
+            <input type="text" name="rating" value=<?php echo $sunscreen>['rating']; ?> >>
             <br>
-            <label>gambar</label>
+            <label>file</label>
             <br>
-            <img scr = <?php echo $sunscreen['gambar'] ?> width= "100">
-            <input type="file" name="gambar">
+            <input type="file" name="gambar" value=<?php echo $sunscreen>['gambar']; ?> >>
             <br>
+            <!-- button type submit ini berfungsi untuk submit form -->
+            <button type="submit" name="update" value="submit">Submit</button>
+           
+           
+        </form>                        
+         
             
-            <br>
-            <br>
-            <br>
-            <button type="submit" name="update" value=<?php echo $sunscreen["id"]; ?>>Submit</button>
-        </form>
+           
             </div>
         </div>
 
